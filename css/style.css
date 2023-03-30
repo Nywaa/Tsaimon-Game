@@ -36,13 +36,12 @@ body
     border-style: dashed;
     border-radius: 0px;
     border-color: #ff4c68;
-    background-color: #485a46;
+    background-color: #20521a;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
-.greenButton:hover
-{
-    background-color: #20521a;
-}
 
 .redButton
 {
@@ -52,12 +51,10 @@ body
     border-style: dashed;
     border-radius: 0px;
     border-color: #ff4c68;
-    background-color: #5a4646;
-}
-
-.redButton:hover
-{
     background-color: #581f1f;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .yellowButton
@@ -68,12 +65,10 @@ body
     border-style: dashed;
     border-radius: 0px;
     border-color: #ff4c68;
-    background-color: #5a5a46;
-}
-
-.yellowButton:hover
-{
     background-color: #74741f;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .blueButton
@@ -84,12 +79,10 @@ body
     border-style: dashed;
     border-radius: 0px;
     border-color: #ff4c68;
-    background-color: #46465a;
-}
-
-.blueButton:hover
-{
     background-color: #292955;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 footer
