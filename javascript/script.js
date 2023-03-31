@@ -7,45 +7,39 @@ var choseableColour = [
 ];
 
 var gamePattern = [];
+var userPattern = [];
+var randomColour;
 
 //--Logic
-var chosenColour = choseableColour[generateRandom()];
-gamePattern.push(chosenColour);
+$(document).on("keydown", function start(){
+    //Initate level 1
+    $("h1").text("Level " + (gamePattern.length + 1));
+    randomColour = choseableColour[generateRandom()];
+    gamePattern.push(randomColour);
 
-$(chosenColour).animate({opacity: 0.5}, "fast")
-.animate({opacity: 1}, "fast")
-.animate({opacity: 0.5}, "fast")
-.animate({opacity: 1}, "fast");
+    //Animate the randomly chosen colour
+    flashAnimation(randomColour);
 
-$(chosenColour).ready(function(){
-    switch (chosenColour) 
+    //Giving buttons to have a eventlistener when clicked
+    for(let i = 0; i <= choseableColour.length; i++)
     {
-        case choseableColour[0]:
-            var soundGreen = new Audio("sounds/green.mp3");
-            soundGreen.play();
-            console.log("green");
-            break;
-    
-        case choseableColour[1]:
-            var soundRed = new Audio("sounds/red.mp3");
-            soundRed.play();
-            console.log("red");
-            break;
-        
-        case choseableColour[2]:
-            var soundYellow = new Audio("sounds/yellow.mp3");
-            soundYellow.play();
-            console.log("yellow");
-            break;
-        
-        case choseableColour[3]:
-            var soundBlue = new Audio("sounds/blue.mp3");
-            soundBlue.play();
-            console.log("blue");
-            break;
-        default:
-            break;
+        //Pushing clicked colour into userPattern array
+        $(choseableColour[i]).on("click", function(){
+            var clickedColor = $(this).attr("class")
+            userPattern.push("."+clickedColor);
+            console.log("User pattern: "+ userPattern);
+
+            //Play audio
+            playAudio("."+clickedColor);
+            flashAnimation("."+clickedColor);
+        });
     }
+
+    // ** Code to check if clicked button same as gamepattern
+    
+
+    //Disable keyboard listener when game already started
+    $(document).off("keydown");
 });
 
 //--Function
@@ -54,3 +48,40 @@ function generateRandom()
     var randomNumber = Math.floor(Math.random() * 4);
     return randomNumber;
 };
+
+function nextPattern()
+{
+    var nextColour = choseableColour[generateRandom()];
+    gamePattern.push(nextColour);
+}
+
+function flashAnimation(className)
+{
+    $(className).animate({opacity: 0.5}, "fast")
+    .animate({opacity: 1}, "fast")
+    .animate({opacity: 0.5}, "fast")
+    .animate({opacity: 1}, "fast");
+}
+
+function playAudio(className)
+{
+    switch(className)
+    {
+        case ".greenButton":
+            var green = new Audio("sounds/green.mp3");
+            green.play();
+            break;
+        case ".redButton":
+            var red = new Audio("sounds/red.mp3");
+            red.play();
+            break;
+        case ".yellowButton":
+            var yellow = new Audio("sounds/yellow.mp3");
+            yellow.play();
+            break;
+        case ".blueButton":
+            var blue = new Audio("sounds/blue.mp3");
+            blue.play();
+            break;
+    }
+}
