@@ -12,10 +12,13 @@ var randomColour;
 
 //--Logic
 $(document).on("keydown", function start(){
-    //Initate level 1
-    $("h1").text("Level " + (gamePattern.length + 1));
+    //Initiate level 1
+    var level = 1;
+    $("h1").text("Level " + level);
+
     randomColour = choseableColour[generateRandom()];
     gamePattern.push(randomColour);
+    var clickAbleButton = gamePattern.length;
 
     //Animate the randomly chosen colour
     flashAnimation(randomColour);
@@ -32,11 +35,11 @@ $(document).on("keydown", function start(){
             //Play audio
             playAudio("."+clickedColor);
             flashAnimation("."+clickedColor);
-        });
-    }
 
-    // ** Code to check if clicked button same as gamepattern
-    
+            //Next Sequences
+            nextSequences(clickAbleButton);
+        });
+    };
 
     //Disable keyboard listener when game already started
     $(document).off("keydown");
@@ -49,10 +52,41 @@ function generateRandom()
     return randomNumber;
 };
 
-function nextPattern()
+function nextSequences(clickAbleButton)
 {
-    var nextColour = choseableColour[generateRandom()];
-    gamePattern.push(nextColour);
+    if(clickAbleButton !== 0)
+    {
+        //Check equality
+        for(let i = 0; i <= gamePattern.length; i++)
+        {
+            if(gamePattern[i] === userPattern[i])
+            {
+                //Next pattern
+                console.log("next");
+                clickAbleButton =- 1;
+            }
+            else
+            {
+                //Game over
+                console.log("lsoe");
+            }
+        }
+    }
+    else
+    {
+        //Next level
+        nextLevel();
+    }
+};
+
+function nextLevel()
+{
+    randomColour = choseableColour[generateRandom()];
+    gamePattern.push(randomColour);
+    var clickAbleButton = gamePattern.length;
+
+    //Animate the randomly chosen colour
+    flashAnimation(randomColour);
 }
 
 function flashAnimation(className)
@@ -61,7 +95,7 @@ function flashAnimation(className)
     .animate({opacity: 1}, "fast")
     .animate({opacity: 0.5}, "fast")
     .animate({opacity: 1}, "fast");
-}
+};
 
 function playAudio(className)
 {
@@ -84,4 +118,4 @@ function playAudio(className)
             blue.play();
             break;
     }
-}
+};
